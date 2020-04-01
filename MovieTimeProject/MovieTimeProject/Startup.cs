@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MovieTime.DataAccessLibrary;
 
 namespace MovieTimeProject
 {
@@ -23,6 +25,10 @@ namespace MovieTimeProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=MovieTimeDb;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<MovieContext>
+                (options => options.UseSqlServer(connection));
+
             services.AddControllersWithViews();
         }
 
