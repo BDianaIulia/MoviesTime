@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MovieTime.ApplicationLogicLibrary.Helpers;
+using MovieTime.ApplicationLogicLibrary.Interfaces;
 using MovieTime.DataAccessLibrary;
 
 namespace MovieTimeProject
@@ -25,7 +27,9 @@ namespace MovieTimeProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=MovieTimeDb;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=DbMovieTime;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<MovieContext>
                 (options => options.UseSqlServer(connection));
 

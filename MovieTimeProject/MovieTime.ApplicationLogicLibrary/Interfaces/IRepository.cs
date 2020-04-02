@@ -9,5 +9,6 @@ namespace MovieTime.ApplicationLogicLibrary.Interfaces
         IEnumerable<T> GetAll();
         T GetElement(T element);
         void Add(T element);
+        void SaveChanges();
     }
 }

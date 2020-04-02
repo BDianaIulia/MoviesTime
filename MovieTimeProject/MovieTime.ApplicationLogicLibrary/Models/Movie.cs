@@ -7,7 +7,7 @@ namespace MovieTime.ApplicationLogicLibrary.Models
     public class Movie
     {
         [Key]
-        public int IdMovie { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Overview { get; set; }
         public DateTime? ReleaseDate { get; set; }

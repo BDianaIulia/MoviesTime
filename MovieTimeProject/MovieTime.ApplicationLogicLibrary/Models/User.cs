@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MovieTime.ApplicationLogicLibrary.Models
@@ -6,7 +7,7 @@ namespace MovieTime.ApplicationLogicLibrary.Models
     public class User
     {
         [Key]
-        public int IdUser { get; set; }
+        public Guid Id { get; set; }
         public string UserName { get; set; }
 
         public ICollection<Comment> Comments { get; set; }

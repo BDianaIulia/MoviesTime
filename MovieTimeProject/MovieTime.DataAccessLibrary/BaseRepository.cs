@@ -7,9 +7,14 @@ namespace MovieTime.DataAccessLibrary
 {
     public class BaseRepository<T> : IRepository<T>
     {
+        MovieContext _db;
+        public BaseRepository(MovieContext db)
+        {
+            _db = db;
+        }
         public void Add(T element)
         {
-            throw new NotImplementedException();
+            _db.Add(element);
         }
 
         public IEnumerable<T> GetAll()
@@ -20,6 +25,11 @@ namespace MovieTime.DataAccessLibrary
         public T GetElement(T element)
         {
             throw new NotImplementedException();
+        }
+
+        public void SaveChanges()
+        {
+            _db.SaveChanges();
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MovieTime.ApplicationLogicLibrary.Helpers;
+using MovieTime.ApplicationLogicLibrary.Interfaces;
 using MovieTimeProject.Models;
 
 namespace MovieTimeProject.Controllers
@@ -13,9 +15,11 @@ namespace MovieTimeProject.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IGenreRepository genreRepository, IMovieRepository movieRepository)
         {
             _logger = logger;
+            //InitializeDatabase initializeDatabase = new InitializeDatabase(genreRepository, movieRepository);
+            //initializeDatabase.collectMovieData();
         }
 
         public IActionResult Index()

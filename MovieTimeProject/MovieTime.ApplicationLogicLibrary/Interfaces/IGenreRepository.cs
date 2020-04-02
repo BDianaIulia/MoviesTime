@@ -7,5 +7,6 @@ namespace MovieTime.ApplicationLogicLibrary.Interfaces
 {
     public interface IGenreRepository : IRepository<Genre>
     {
+        public Genre GetGenreAfterName(string genreName);
     }
 }

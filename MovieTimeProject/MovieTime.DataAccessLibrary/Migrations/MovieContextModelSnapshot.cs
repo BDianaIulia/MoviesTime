@@ -21,53 +21,50 @@ namespace MovieTime.DataAccessLibrary.Migrations
 
             modelBuilder.Entity("MovieTime.ApplicationLogicLibrary.Models.Comment", b =>
                 {
-                    b.Property<int>("IdComment")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CommentText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdMovie")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdUser")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ReviewScore")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.HasKey("IdComment");
+                    b.HasIndex("IdMovie");
 
-                    b.HasIndex("MovieId");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("MovieTime.ApplicationLogicLibrary.Models.Genre", b =>
                 {
-                    b.Property<int>("IdGenre")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("GenreName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdGenre");
+                    b.HasKey("Id");
 
                     b.ToTable("Genre");
                 });
 
             modelBuilder.Entity("MovieTime.ApplicationLogicLibrary.Models.Movie", b =>
                 {
-                    b.Property<int>("IdMovie")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Overview")
                         .HasColumnType("nvarchar(max)");
@@ -87,35 +84,34 @@ namespace MovieTime.DataAccessLibrary.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdMovie");
+                    b.HasKey("Id");
 
                     b.ToTable("Movie");
                 });
 
             modelBuilder.Entity("MovieTime.ApplicationLogicLibrary.Models.MovieGenre", b =>
                 {
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdMovie")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdGenre")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("MovieId", "GenreId");
+                    b.HasKey("IdMovie", "IdGenre");
 
-                    b.HasIndex("GenreId");
+                    b.HasIndex("IdGenre");
 
                     b.ToTable("MovieGenre");
                 });
 
             modelBuilder.Entity("MovieTime.ApplicationLogicLibrary.Models.MovieRating", b =>
                 {
-                    b.Property<int>("IdMovieRating")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdMovie")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("NumberOf1ReviewStars")
                         .HasColumnType("int");
@@ -132,9 +128,9 @@ namespace MovieTime.DataAccessLibrary.Migrations
                     b.Property<int>("NumberOf5ReviewStars")
                         .HasColumnType("int");
 
-                    b.HasKey("IdMovieRating");
+                    b.HasKey("Id");
 
-                    b.HasIndex("MovieId")
+                    b.HasIndex("IdMovie")
                         .IsUnique();
 
                     b.ToTable("MovieRating");
@@ -142,33 +138,32 @@ namespace MovieTime.DataAccessLibrary.Migrations
 
             modelBuilder.Entity("MovieTime.ApplicationLogicLibrary.Models.User", b =>
                 {
-                    b.Property<int>("IdUser")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdUser");
+                    b.HasKey("Id");
 
                     b.ToTable("User");
                 });
 
             modelBuilder.Entity("MovieTime.ApplicationLogicLibrary.Models.UserMovieActivity", b =>
                 {
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdMovie")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdUser")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("MovieId", "UserId");
+                    b.HasKey("IdMovie", "IdUser");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("UserMovieActivity");
                 });
@@ -177,13 +172,13 @@ namespace MovieTime.DataAccessLibrary.Migrations
                 {
                     b.HasOne("MovieTime.ApplicationLogicLibrary.Models.Movie", "Movie")
                         .WithMany("Comments")
-                        .HasForeignKey("MovieId")
+                        .HasForeignKey("IdMovie")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MovieTime.ApplicationLogicLibrary.Models.User", "User")
                         .WithMany("Comments")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -192,13 +187,13 @@ namespace MovieTime.DataAccessLibrary.Migrations
                 {
                     b.HasOne("MovieTime.ApplicationLogicLibrary.Models.Genre", "Genre")
                         .WithMany("Movies")
-                        .HasForeignKey("GenreId")
+                        .HasForeignKey("IdGenre")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MovieTime.ApplicationLogicLibrary.Models.Movie", "Movie")
                         .WithMany("Genres")
-                        .HasForeignKey("MovieId")
+                        .HasForeignKey("IdMovie")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -207,7 +202,7 @@ namespace MovieTime.DataAccessLibrary.Migrations
                 {
                     b.HasOne("MovieTime.ApplicationLogicLibrary.Models.Movie", "Movie")
                         .WithOne("MovieRating")
-                        .HasForeignKey("MovieTime.ApplicationLogicLibrary.Models.MovieRating", "MovieId")
+                        .HasForeignKey("MovieTime.ApplicationLogicLibrary.Models.MovieRating", "IdMovie")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -216,13 +211,13 @@ namespace MovieTime.DataAccessLibrary.Migrations
                 {
                     b.HasOne("MovieTime.ApplicationLogicLibrary.Models.Movie", "Movie")
                         .WithMany("RelatedListUsersActivity")
-                        .HasForeignKey("MovieId")
+                        .HasForeignKey("IdMovie")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MovieTime.ApplicationLogicLibrary.Models.User", "User")
                         .WithMany("RelatedListMovies")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

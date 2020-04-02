@@ -22,49 +22,48 @@ namespace MovieTime.DataAccessLibrary
         {
             //many to many Movie - Genre
             modelBuilder.Entity<MovieGenre>()
-                .HasKey(bc => new { bc.MovieId, bc.GenreId });
+                .HasKey(bc => new { bc.IdMovie, bc.IdGenre });
             modelBuilder.Entity<MovieGenre>()
                 .HasOne(bc => bc.Movie)
                 .WithMany(b => b.Genres)
-                .HasForeignKey(bc => bc.MovieId);
+                .HasForeignKey(bc => bc.IdMovie);
             modelBuilder.Entity<MovieGenre>()
                 .HasOne(bc => bc.Genre)
                 .WithMany(c => c.Movies)
-                .HasForeignKey(bc => bc.GenreId);
+                .HasForeignKey(bc => bc.IdGenre);
 
 
             //many to many Movie - User
             modelBuilder.Entity<UserMovieActivity>()
-                .HasKey(bc => new { bc.MovieId, bc.UserId });
+                .HasKey(bc => new { bc.IdMovie, bc.IdUser });
             modelBuilder.Entity<UserMovieActivity>()
                 .HasOne(bc => bc.Movie)
                 .WithMany(b => b.RelatedListUsersActivity)
-                .HasForeignKey(bc => bc.MovieId);
+                .HasForeignKey(bc => bc.IdMovie);
             modelBuilder.Entity<UserMovieActivity>()
                 .HasOne(bc => bc.User)
                 .WithMany(c => c.RelatedListMovies)
-                .HasForeignKey(bc => bc.UserId);
-
+                .HasForeignKey(bc => bc.IdUser);
 
 
             //one to one Movie - Movie Rating
             modelBuilder.Entity<Movie>()
                 .HasOne<MovieRating>(s => s.MovieRating)
                 .WithOne(ad => ad.Movie)
-                .HasForeignKey<MovieRating>(ad => ad.MovieId);
+                .HasForeignKey<MovieRating>(ad => ad.IdMovie);
 
 
             //one to many Movie - Comments
             modelBuilder.Entity<Comment>()
                 .HasOne<Movie>(s => s.Movie)
                 .WithMany(g => g.Comments)
-                .HasForeignKey(s => s.MovieId);
+                .HasForeignKey(s => s.IdMovie);
 
             //one to many User - Comments
             modelBuilder.Entity<Comment>()
                 .HasOne<User>(s => s.User)
                 .WithMany(g => g.Comments)
-                .HasForeignKey(s => s.UserId);
+                .HasForeignKey(s => s.IdUser);
 
         }
 

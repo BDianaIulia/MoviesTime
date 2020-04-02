@@ -8,14 +8,14 @@ namespace MovieTime.ApplicationLogicLibrary.Models
     public class Comment
     {
         [Key]
-        public int IdComment { get; set; }
+        public Guid Id { get; set; }
         public int ReviewScore { get; set; }
         public string CommentText { get; set; }
 
-        public int MovieId { get; set; }
+        public Guid IdMovie { get; set; }
         public Movie Movie { get; set; }
 
-        public int UserId { get; set; }
+        public Guid IdUser { get; set; }
         public User User { get; set; }
     }
 }

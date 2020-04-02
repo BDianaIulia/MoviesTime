@@ -1,10 +1,12 @@
-﻿namespace MovieTime.ApplicationLogicLibrary.Models
+﻿using System;
+
+namespace MovieTime.ApplicationLogicLibrary.Models
 {
     public class MovieGenre
     {
-        public int MovieId { get; set; }
+        public Guid IdMovie { get; set; }
         public Movie Movie { get; set; }
-        public int GenreId { get; set; }
+        public Guid IdGenre { get; set; }
         public Genre Genre { get; set; }
     }
 }
