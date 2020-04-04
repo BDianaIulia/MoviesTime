@@ -14,7 +14,7 @@ namespace MovieTime.ApplicationLogicLibrary.Models
         public string PosterPath { get; set; }
         public double Popularity { get; set; }
 
-        public string ReviewScore { get; set; }
+        public int ReviewScoreValue { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
         public ICollection<MovieGenre> Genres { get; set; }

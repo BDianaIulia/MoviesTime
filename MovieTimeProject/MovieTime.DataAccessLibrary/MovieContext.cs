@@ -65,7 +65,26 @@ namespace MovieTime.DataAccessLibrary
                 .WithMany(g => g.Comments)
                 .HasForeignKey(s => s.IdUser);
 
+            modelBuilder.Entity<Movie>()
+                    .Property(b => b.ReviewScoreValue)
+                    .HasDefaultValue(0);
+
+            foreach (var numberOfReviews in _numberOfReviews)
+            {
+                modelBuilder.Entity<MovieRating>()
+                    .Property(numberOfReviews.Key)
+                    .HasDefaultValue(numberOfReviews.Value);
+            }
         }
+
+        Dictionary<string, int> _numberOfReviews = new Dictionary<string, int>()
+        {
+            { nameof(MovieTime.ApplicationLogicLibrary.Models.MovieRating.NumberOf1ReviewStars), 0 },
+            { nameof(MovieTime.ApplicationLogicLibrary.Models.MovieRating.NumberOf2ReviewStars), 0 },
+            { nameof(MovieTime.ApplicationLogicLibrary.Models.MovieRating.NumberOf3ReviewStars), 0 },
+            { nameof(MovieTime.ApplicationLogicLibrary.Models.MovieRating.NumberOf4ReviewStars), 0 },
+            { nameof(MovieTime.ApplicationLogicLibrary.Models.MovieRating.NumberOf5ReviewStars), 0 }
+        };
 
     }
 }

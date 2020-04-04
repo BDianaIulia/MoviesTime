@@ -30,7 +30,6 @@ namespace MovieTime.ApplicationLogicLibrary.Helpers
             {
                 if (movieJson.PosterPath != null)
                 {
-                    //movieJson.PosterPath = "1A1jKAoUe0Ksbe9YMhY1P9kFMwU";
                     if (File.Exists(@"coverPhotos\" + movieJson.PosterPath))
                     {
                         ICollection<MovieGenre> genresFromAMovie = new List<MovieGenre>();
