@@ -29,7 +29,11 @@ namespace MovieTimeProject
         {
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IMovieRepository, MovieRepository>();
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=DbMovieTime;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Data Source = (LocalDB)\mssqllocaldb; " +
+                        @"AttachDbFilename=D:\DbMovieTime.mdf;" +
+                        @"Integrated Security=True;" +
+                        @"MultipleActiveResultSets=True;" +
+                        @"User Instance=False";
             services.AddDbContext<MovieContext>
                 (options => options.UseSqlServer(connection));
 
