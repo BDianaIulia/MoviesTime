@@ -7,8 +7,8 @@ namespace MovieTime.ApplicationLogicLibrary.Interfaces
 {
     public interface IMovieRepository : IRepository<Movie>
     {
-        IEnumerable<string> getTopRatedListOfMovies();
-        IEnumerable<string> getLatestListOfMovies();
-        IEnumerable<string> getMayInterestListOfMovies();
+        IEnumerable<Movie> getTopRatedListOfMovies();
+        IEnumerable<Movie> getLatestListOfMovies();
+        IEnumerable<Movie> getMayInterestListOfMovies();
     }
 }

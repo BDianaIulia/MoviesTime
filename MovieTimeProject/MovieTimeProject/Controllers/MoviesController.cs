@@ -25,22 +25,16 @@ namespace MovieTimeProject.Controllers
             return View(await _context.Movie.ToListAsync());
         }
 
-        // GET: Movies/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        
+
+        public IActionResult Details(Movie forMovie)
         {
-            if (id == null)
+            if (forMovie == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movie
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (movie == null)
-            {
-                return NotFound();
-            }
-
-            return View(movie);
+            return View(forMovie);
         }
 
         // GET: Movies/Create

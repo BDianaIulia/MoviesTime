@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MovieTime.ApplicationLogicLibrary.Interfaces;
+using MovieTime.ApplicationLogicLibrary.Models;
 using MovieTime.ApplicationLogicLibrary.Services;
 using MovieTimeProject.Models;
 
@@ -39,9 +40,9 @@ namespace MovieTimeProject.Controllers
 
     public class ViewModelHomePage
     {
-        public IEnumerable<string> topRatedList;
-        public IEnumerable<string> latestList;
-        public IEnumerable<string> interestList;
+        public IEnumerable<Movie> topRatedList;
+        public IEnumerable<Movie> latestList;
+        public IEnumerable<Movie> interestList;
 
         private MovieService _movieService;
 

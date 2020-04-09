@@ -1,4 +1,5 @@
 ﻿using MovieTime.ApplicationLogicLibrary.Interfaces;
+using MovieTime.ApplicationLogicLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,17 +14,17 @@ namespace MovieTime.ApplicationLogicLibrary.Services
             _movieRepository = movieRepository;
         }
 
-        public IEnumerable<string> getTopRatedListOfMovies()
+        public IEnumerable<Movie> getTopRatedListOfMovies()
         {
             return _movieRepository.getTopRatedListOfMovies();
         }
 
-        public IEnumerable<string> getLatestListOfMovies()
+        public IEnumerable<Movie> getLatestListOfMovies()
         {
             return _movieRepository.getLatestListOfMovies();
         }
 
-        public IEnumerable<string> getMayInterestListOfMovies()
+        public IEnumerable<Movie> getMayInterestListOfMovies()
         {
             return _movieRepository.getMayInterestListOfMovies();
         }

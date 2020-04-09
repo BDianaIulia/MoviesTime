@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MovieTime.ApplicationLogicLibrary.Interfaces;
 using MovieTime.ApplicationLogicLibrary.Models;
 using System;
@@ -16,25 +17,25 @@ namespace MovieTime.DataAccessLibrary
             _configuration = configuration;
         }
 
-        public IEnumerable<string> getLatestListOfMovies()
+        public IEnumerable<Movie> getLatestListOfMovies()
         {
-            return (from movie in _db.Movie
+            return (from movie in _db.Movie.Include(x => x.Genres).ThenInclude(x => x.Genre)
                     orderby movie.ReleaseDate descending
-                    select movie.PosterPath).Take(_configuration.GetValue<int>("NumberOfMoviesToBeDisplayed"));
+                    select movie).Take(_configuration.GetValue<int>("NumberOfMoviesToBeDisplayed"));
         }
 
-        public IEnumerable<string> getMayInterestListOfMovies()
+        public IEnumerable<Movie> getMayInterestListOfMovies()
         {
-            return (from movie in _db.Movie
+            return (from movie in _db.Movie.Include(x => x.Genres).ThenInclude(x => x.Genre)
                     orderby movie.Id
-                    select movie.PosterPath).Take(_configuration.GetValue<int>("NumberOfMoviesToBeDisplayed"));
+                    select movie).Take(_configuration.GetValue<int>("NumberOfMoviesToBeDisplayed"));
         }
 
-        public IEnumerable<string> getTopRatedListOfMovies()
+        public IEnumerable<Movie> getTopRatedListOfMovies()
         {
-            return (from movie in _db.Movie
+            return (from movie in _db.Movie.Include(x => x.Genres).ThenInclude(x => x.Genre)
                     orderby movie.Popularity descending
-                    select movie.PosterPath).Take(_configuration.GetValue<int>("NumberOfMoviesToBeDisplayed"));
+                    select movie).Take(_configuration.GetValue<int>("NumberOfMoviesToBeDisplayed"));
         }
     }
 }
