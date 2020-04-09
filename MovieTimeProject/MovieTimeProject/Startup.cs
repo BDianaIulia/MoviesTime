@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MovieTime.ApplicationLogicLibrary.Helpers;
 using MovieTime.ApplicationLogicLibrary.Interfaces;
+using MovieTime.ApplicationLogicLibrary.Services;
 using MovieTime.DataAccessLibrary;
 
 namespace MovieTimeProject
@@ -29,11 +30,9 @@ namespace MovieTimeProject
         {
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IMovieRepository, MovieRepository>();
-            var connection = @"Data Source = (LocalDB)\mssqllocaldb; " +
-                        @"AttachDbFilename=D:\DbMovieTime.mdf;" +
-                        @"Integrated Security=True;" +
-                        @"MultipleActiveResultSets=True;" +
-                        @"User Instance=False";
+            services.AddScoped<MovieService>();
+
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=DbMovieTime;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<MovieContext>
                 (options => options.UseSqlServer(connection));
 

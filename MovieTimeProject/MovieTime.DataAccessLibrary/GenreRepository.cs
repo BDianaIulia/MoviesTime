@@ -6,10 +6,8 @@ namespace MovieTime.DataAccessLibrary
 {
     public class GenreRepository : BaseRepository<Genre>, IGenreRepository
     {
-        MovieContext _db;
         public GenreRepository(MovieContext db) : base(db)
         {
-            _db = db;
         }
 
         public Genre GetGenreAfterName(string genreName)

@@ -1,0 +1,107 @@
+
+/* scrollable galleries */
+
+		div.scrollableGallery{
+            
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+  
+        }
+
+        div.scrollableGallery.div.gallery {
+            flex: 0 0 auto;
+        }
+
+        div.scrollableGallery.scrolling-wrapper {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        div.gallery {
+          margin: 5px;
+          border: 1px solid #ccc;
+          float: left;
+          width: 3000px;
+
+        }
+ 
+        div.gallery:hover {
+          border: 1px solid #777;
+        }
+        
+        div.gallery img {
+          width: 200px;
+          height: 200px;
+        }
+
+        
+        div.desc {
+          padding: 7px;
+          text-align: center;
+        }
+		
+/* Navigation bar */
+
+		body {
+		  background-color: rgba(243, 182, 112, 0.2);
+		}
+		
+		.topnav {
+		  background-color: #333;
+		  overflow: hidden;
+		}
+
+		.topnav a {
+		  float: left;
+		  color: #f2f2f2;
+		  text-align: center;
+		  padding: 14px 16px;
+		  text-decoration: none;
+		  font-size: 17px;
+		}
+
+		.topnav a:hover {
+		  background-color: #ddd;
+		  color: black;
+		}
+
+		.topnav a.active {
+		  background-color: #4CAF50;
+		  color: white;
+		}
+		
+		.topnav input[type=text] {
+			  float: right;
+			  padding: 6px;
+			  border: none;
+			  margin-top: 8px;
+			  margin-right: 16px;
+			  font-size: 17px;
+		}
+		
+		
+/* centering pages*/
+	
+		.content {
+		  max-width: 95%;
+		  margin: auto;
+		}
+		
+/* style for emblem */
+		.topnav a.emblem{
+			text-shadow: 0 1px 0px #378ab4, 1px 0 0px #5dabcd, 1px 2px 1px #378ab4, 2px 1px 1px #5dabcd, 2px 3px 2px #378ab4, 3px 2px 2px #5dabcd, 3px 4px 2px #378ab4, 4px 3px 3px #5dabcd, 4px 5px 3px #378ab4, 5px 4px 2px #5dabcd, 5px 6px 2px #378ab4, 6px 5px 2px #5dabcd, 6px 7px 1px #378ab4, 7px 6px 1px #5dabcd, 7px 8px 0px #378ab4, 8px 7px 0px #5dabcd;
+			font-family: Impact, Charcoal, sans-serif;
+			font-size: 20px;
+			letter-spacing: -1px;
+			word-spacing: 0.2px;
+			color: #FFDDD0;
+			font-weight: 200;
+			text-decoration: none;
+			font-style: normal;
+			font-variant: normal;
+			text-transform: capitalize;
+
+		}
+		
+		

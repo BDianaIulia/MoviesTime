@@ -7,7 +7,7 @@ namespace MovieTime.DataAccessLibrary
 {
     public class BaseRepository<T> : IRepository<T>
     {
-        MovieContext _db;
+        protected MovieContext _db;
         public BaseRepository(MovieContext db)
         {
             _db = db;
