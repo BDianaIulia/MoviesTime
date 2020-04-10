@@ -1,54 +1,144 @@
-﻿@model MovieTime.ApplicationLogicLibrary.Models.Movie
+﻿@model MovieTimeProject.Models.Movies.DetailsMovieViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<!DOCTYPE html>
+<head lang="en">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/css/generalLayout.css" type="text/css" rel="stylesheet" />
+    <link href="~/css/movieDescription.css" type="text/css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
-<div>
-    <h4>Movie</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Overview)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Overview)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReleaseDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PosterPath)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PosterPath)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Popularity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Popularity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReviewScoreValue)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReviewScoreValue)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+</head>
+
+<body>
+    <div class="content">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p> <img src="@Url.Content(String.Format("~/coverPhotos{0}", Model.Movie.PosterPath))" /> </p>
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="describe">
+                        <h1> @Model.Movie.Title </h1>
+                        <p> @Model.Movie.Overview </p>
+                        <p> Release day: @Model.Movie.ReleaseDate.ToString().Substring(0, Math.Min(Model.Movie.ReleaseDate.ToString().Length, 10)) </p>
+                        <p style="text-align : left">  Genres: </p>
+                        <ul>
+                            @foreach (var movieGenre in Model.Movie.Genres)
+                            {
+                                <li>@movieGenre.Genre.GenreName</li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <span class="heading">User Rating</span>
+        @for (int i = 0; i < 5; i++)
+        {
+            @if (i < Model.Movie.ReviewScoreValue)
+            {
+                <span class="fa fa-star checked"></span>
+            }
+            else
+            {
+                <span class="fa fa-star"></span>
+            }
+        }
+
+        <!--open like a pop up -->
+        <a href="#"
+           class="btn"><span>+</span></a>
+
+    
+
+
+        <p>@Model.Movie.ReviewScoreValue average based on @Model.NumberOfReviewsForMovie reviews.</p>
+        <hr style="border:3px solid #f1f1f1">
+
+        <div class="row">
+            <div class="side">
+                <div>5 star</div>
+            </div>
+
+            <div class="middle">
+                <div class="bar-container">
+                    <div class="bar-5" , style="width:0%;"></div>
+                </div>
+            </div>
+
+            <div class="side right">
+                <div>0</div>
+            </div>
+
+            <div class="side">
+                <div>4 star</div>
+            </div>
+
+            <div class="middle">
+                <div class="bar-container">
+                    <div class="bar-4"></div>
+                </div>
+            </div>
+
+            <div class="side right">
+                <div>63</div>
+            </div>
+
+            <div class="side">
+                <div>3 star</div>
+            </div>
+
+            <div class="middle">
+                <div class="bar-container">
+                    <div class="bar-3"></div>
+                </div>
+            </div>
+
+            <div class="side right">
+                <div>15</div>
+            </div>
+
+            <div class="side">
+                <div>2 star</div>
+            </div>
+
+            <div class="middle">
+                <div class="bar-container">
+                    <div class="bar-2"></div>
+                </div>
+            </div>
+
+            <div class="side right">
+                <div>6</div>
+            </div>
+
+            <div class="side">
+                <div>1 star</div>
+            </div>
+
+            <div class="middle">
+                <div class="bar-container">
+                    <div class="bar-1"></div>
+                </div>
+            </div>
+
+            <div class="side right">
+                <div>20</div>
+            </div>
+        </div>
+
+        <a href="#" class="btn"><span>+ Add to Wish List</span></a>
+        <a href="#" class="btn"><span>+ Add to Seen List</span></a>
+        <a href="#" class="btn"><span>Comments</span></a>
+
+    </div>
+</body>

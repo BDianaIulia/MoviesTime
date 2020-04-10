@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieTime.ApplicationLogicLibrary.Models;
 using MovieTime.ApplicationLogicLibrary.Services;
 using MovieTime.DataAccessLibrary;
+using MovieTimeProject.Models.Movies;
 
 namespace MovieTimeProject.Controllers
 {
@@ -37,7 +38,8 @@ namespace MovieTimeProject.Controllers
                 return BadRequest("Invalid request received ");
             }
 
-            return View(movie);
+            int numberOfReviewsForMovie = _movieService.getNumberOfReviews(movie);
+            return View(new DetailsMovieViewModel { Movie = movie, NumberOfReviewsForMovie = numberOfReviewsForMovie});
         }
 
     }
