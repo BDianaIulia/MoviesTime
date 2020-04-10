@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MovieTime.ApplicationLogicLibrary.Exceptions;
 using MovieTime.ApplicationLogicLibrary.Interfaces;
 using MovieTime.ApplicationLogicLibrary.Models;
 using System;
@@ -19,18 +20,19 @@ namespace MovieTime.DataAccessLibrary
 
         public Movie getElementBy(Guid? id)
         {
-            if( id == null )
+            if (id == null)
             {
-                //exception
+                throw new Exception("Empty id");
             }
 
-            var searchedMovie =  (from movie in _db.Movie
-                    where movie.Id == id
-                    select movie).SingleOrDefault();
+            var searchedMovie = (from movie in _db.Movie.Include(x => x.Genres).ThenInclude(x => x.Genre)
+                                                        .Include(x => x.MovieRating)
+                                 where movie.Id == id
+                                 select movie).SingleOrDefault();
 
-            if( searchedMovie == null)
-            { 
-                //exception
+            if (searchedMovie == null)
+            {
+                throw new EntityNotFoundException(id);
             }
 
             return searchedMovie;

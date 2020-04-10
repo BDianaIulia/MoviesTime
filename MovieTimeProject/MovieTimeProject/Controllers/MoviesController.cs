@@ -27,7 +27,16 @@ namespace MovieTimeProject.Controllers
                 return NotFound();
             }
 
-            var movie = _movieService.getElementBy(id);
+            Movie movie;
+            try
+            {
+                movie = _movieService.getElementBy(id);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid request received ");
+            }
+
             return View(movie);
         }
 
