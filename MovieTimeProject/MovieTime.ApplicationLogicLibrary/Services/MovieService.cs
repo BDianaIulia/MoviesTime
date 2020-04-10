@@ -13,7 +13,6 @@ namespace MovieTime.ApplicationLogicLibrary.Services
         {
             _movieRepository = movieRepository;
         }
-
         public IEnumerable<Movie> getTopRatedListOfMovies()
         {
             return _movieRepository.getTopRatedListOfMovies();
@@ -22,6 +21,11 @@ namespace MovieTime.ApplicationLogicLibrary.Services
         public IEnumerable<Movie> getLatestListOfMovies()
         {
             return _movieRepository.getLatestListOfMovies();
+        }
+
+        public Movie getElementBy(Guid? id)
+        {
+            return _movieRepository.getElementBy(id);
         }
 
         public IEnumerable<Movie> getMayInterestListOfMovies()

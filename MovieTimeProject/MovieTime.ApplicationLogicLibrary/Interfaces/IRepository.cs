@@ -7,7 +7,6 @@ namespace MovieTime.ApplicationLogicLibrary.Interfaces
     public interface IRepository<T>
     {
         IEnumerable<T> GetAll();
-        T GetElement(T element);
         void Add(T element);
         void SaveChanges();
     }

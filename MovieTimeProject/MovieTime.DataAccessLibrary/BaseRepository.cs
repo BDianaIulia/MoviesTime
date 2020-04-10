@@ -22,11 +22,6 @@ namespace MovieTime.DataAccessLibrary
             throw new NotImplementedException();
         }
 
-        public T GetElement(T element)
-        {
-            throw new NotImplementedException();
-        }
-
         public void SaveChanges()
         {
             _db.SaveChanges();

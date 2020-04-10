@@ -10,5 +10,6 @@ namespace MovieTime.ApplicationLogicLibrary.Interfaces
         IEnumerable<Movie> getTopRatedListOfMovies();
         IEnumerable<Movie> getLatestListOfMovies();
         IEnumerable<Movie> getMayInterestListOfMovies();
+        Movie getElementBy(Guid? id);
     }
 }

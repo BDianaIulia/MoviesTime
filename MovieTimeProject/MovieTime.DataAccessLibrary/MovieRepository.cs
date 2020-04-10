@@ -17,23 +17,42 @@ namespace MovieTime.DataAccessLibrary
             _configuration = configuration;
         }
 
+        public Movie getElementBy(Guid? id)
+        {
+            if( id == null )
+            {
+                //exception
+            }
+
+            var searchedMovie =  (from movie in _db.Movie
+                    where movie.Id == id
+                    select movie).SingleOrDefault();
+
+            if( searchedMovie == null)
+            { 
+                //exception
+            }
+
+            return searchedMovie;
+        }
+
         public IEnumerable<Movie> getLatestListOfMovies()
         {
-            return (from movie in _db.Movie.Include(x => x.Genres).ThenInclude(x => x.Genre)
+            return (from movie in _db.Movie
                     orderby movie.ReleaseDate descending
                     select movie).Take(_configuration.GetValue<int>("NumberOfMoviesToBeDisplayed"));
         }
 
         public IEnumerable<Movie> getMayInterestListOfMovies()
         {
-            return (from movie in _db.Movie.Include(x => x.Genres).ThenInclude(x => x.Genre)
+            return (from movie in _db.Movie
                     orderby movie.Id
                     select movie).Take(_configuration.GetValue<int>("NumberOfMoviesToBeDisplayed"));
         }
 
         public IEnumerable<Movie> getTopRatedListOfMovies()
         {
-            return (from movie in _db.Movie.Include(x => x.Genres).ThenInclude(x => x.Genre)
+            return (from movie in _db.Movie
                     orderby movie.Popularity descending
                     select movie).Take(_configuration.GetValue<int>("NumberOfMoviesToBeDisplayed"));
         }
