@@ -32,7 +32,7 @@
             @for (var i = 0; i < Model.topRatedList.Count(); i++)
             {
                 <div class="gallery">
-                    <a href="@Url.Action("Details", "Movies", Model.latestList.ElementAt(i)) ">
+                    <a href="@Url.Action("Details", "Movies", Model.topRatedList.ElementAt(i)) ">
                         <img src="@Url.Content(String.Format("~/coverPhotos{0}", Model.topRatedList.ElementAt(i).PosterPath))">
                     </a>
                 </div>
@@ -48,7 +48,7 @@
             @for (var i = 0; i < Model.interestList.Count(); i++)
             {
                 <div class="gallery">
-                    <a href="@Url.Action("Details", "Movies", Model.latestList.ElementAt(i)) ">
+                    <a href="@Url.Action("Details", "Movies", Model.interestList.ElementAt(i)) ">
                         <img src="@Url.Content(String.Format("~/coverPhotos{0}", Model.interestList.ElementAt(i).PosterPath))">
                     </a>
                 </div>
