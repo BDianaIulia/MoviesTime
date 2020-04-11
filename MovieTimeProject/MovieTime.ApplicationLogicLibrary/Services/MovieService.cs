@@ -32,20 +32,5 @@ namespace MovieTime.ApplicationLogicLibrary.Services
         {
             return _movieRepository.getMayInterestListOfMovies();
         }
-        public int getNumberOfReviews(Movie movie)
-        {
-            var movieRating = movie.MovieRating;
-
-            if (movieRating != null)
-            {
-                return movieRating.NumberOf1ReviewStars + movieRating.NumberOf2ReviewStars +
-                        movieRating.NumberOf3ReviewStars + movieRating.NumberOf4ReviewStars +
-                        movieRating.NumberOf5ReviewStars;
-            }
-            else
-            {
-                return 0;
-            }
-        }
     }
 }

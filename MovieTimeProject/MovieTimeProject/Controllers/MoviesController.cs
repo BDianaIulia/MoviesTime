@@ -38,8 +38,7 @@ namespace MovieTimeProject.Controllers
                 return BadRequest("Invalid request received ");
             }
 
-            int numberOfReviewsForMovie = _movieService.getNumberOfReviews(movie);
-            return View(new DetailsMovieViewModel { Movie = movie, NumberOfReviewsForMovie = numberOfReviewsForMovie});
+            return View(new DetailsMovieViewModel { Movie = movie, MovieScores = new MovieScores(movie)});
         }
 
     }

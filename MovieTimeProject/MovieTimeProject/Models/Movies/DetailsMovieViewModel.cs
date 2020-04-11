@@ -9,6 +9,6 @@ namespace MovieTimeProject.Models.Movies
     public class DetailsMovieViewModel
     {
         public Movie Movie { get; set; }
-        public int NumberOfReviewsForMovie { get; set; }
+        public MovieScores MovieScores { get; set; }
     }
 }
