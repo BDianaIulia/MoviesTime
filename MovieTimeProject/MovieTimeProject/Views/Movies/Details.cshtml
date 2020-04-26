@@ -1,5 +1,9 @@
 ﻿@model MovieTimeProject.Models.Movies.DetailsMovieViewModel
 
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -54,9 +58,12 @@
             }
         }
 
-        <!--open like a pop up -->
-        <a href="#"
-           class="btn"><span>+</span></a>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <!--open like a pop up -->
+            <a href="#"
+               class="btn"><span>+</span></a>
+        }
 
 
         <p>@Model.Movie.ReviewScoreValue average based on @Model.MovieScores.NumberOfReviewsForMovie reviews.</p>
@@ -134,8 +141,11 @@
             </div>
         </div>
 
-        <a href="#" class="btn"><span>+ Add to Wish List</span></a>
-        <a href="#" class="btn"><span>+ Add to Seen List</span></a>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a href="#" class="btn"><span>+ Add to Wish List</span></a>
+            <a href="#" class="btn"><span>+ Add to Seen List</span></a>
+        }
         <a href="#" class="btn"><span>Comments</span></a>
 
     </div>

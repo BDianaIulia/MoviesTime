@@ -1,0 +1,52 @@
+﻿@*@model MovieTimeProject.Models.Users.UserRegisterModel*@
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/css/generalLayout.css" type="text/css" rel="stylesheet" />
+    <link href="~/css/registerPage.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="content">
+
+        <div class="box">
+            <h1> Log In </h1>
+
+            <button onclick="document.getElementById('loginButton').style.display='block'" style="margin-right:50px">Login</button>
+
+            <div id="loginButton" class="modal">
+
+                <form class="modal-content animate" asp-action="Login">
+                    <div class="imgcontainer">
+                        <span onclick="document.getElementById('loginButton').style.display='none'" class="close" title="Close Modal">&times;</span>
+                    </div>
+
+                    <partial>@Html.Partial("_loginPartialView")</partial>
+
+                </form>
+            </div>
+
+
+            <button onclick="document.getElementById('registerButton').style.display='block'" style="margin-right:50px">Register</button>
+
+            <div id="registerButton" class="modal">
+                <form class="modal-content animate" asp-action="Register">
+                    <div class="imgcontainer">
+                        <span onclick="document.getElementById('registerButton').style.display='none'" class="close" title="Close Modal">&times;</span>
+                    </div>
+                    <partial> @Html.Partial("_registerPartialView") </partial>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+
+
+

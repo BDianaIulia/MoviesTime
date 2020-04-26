@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -16,10 +20,17 @@
                 <a class="emblem" asp-controller="Home" asp-action="Index">MovieTime</a>
                 <a asp-controller="Home" asp-action="Index">Home</a>
                 <a asp-controller="Genres" asp-action="Index">Genres</a>
-                <a href="RegisterPage.html">Login</a>
-                <a href="ProfilePage.html">MyProfile</a>
-                <input type="text" placeholder="Search..">
-            </div>
+                @if (!SignInManager.IsSignedIn(User))
+                {
+                    <a asp-controller="Users" asp-action="Create">Login</a>
+                }
+                else
+                {
+                    <a href="ProfilePage.html">MyProfile</a>
+                    <a asp-controller="Users" asp-action="Logout">Log out</a>
+                }
+                    <input type="text" placeholder="Search..">
+                </div>
         </div>
     </header>
     <div class="container">
