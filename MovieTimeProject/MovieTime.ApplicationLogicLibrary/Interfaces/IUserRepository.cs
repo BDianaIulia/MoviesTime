@@ -7,5 +7,7 @@ namespace MovieTime.ApplicationLogicLibrary.Interfaces
 {
     public interface IUserRepository : IRepository<User>
     {
+        bool NameExists(string userName);
+        void SaveUser(User newUser);
     }
 }

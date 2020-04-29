@@ -1,0 +1,14 @@
+﻿@model MovieTime.ApplicationLogicLibrary.Models.User
+
+<div class="container">
+    <label asp-for="UserName"><b>Username</b></label>
+    <div class="login"> <input type="text" placeholder="Enter Username" asp-for="UserName" required> </div>
+
+    <label asp-for="Password"><b>Password</b></label>
+    <div class="login"> <input type="password" placeholder="Enter Password" asp-for="Password" required> </div>
+
+    <button type="submit">Login</button>
+    <label>
+        <div class="login"> <input type="checkbox" checked="checked" name="remember"> Remember me </div>
+    </label>
+</div>

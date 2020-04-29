@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MovieTime.ApplicationLogicLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Text;
 
 namespace MovieTime.DataAccessLibrary
 {
-    public class MovieContext : DbContext
+    public class MovieContext : IdentityDbContext<IdentityUser>
     {
         public MovieContext(DbContextOptions<MovieContext> contextOptions)
             : base(contextOptions)
@@ -75,6 +77,9 @@ namespace MovieTime.DataAccessLibrary
                     .Property(numberOfReviews.Key)
                     .HasDefaultValue(numberOfReviews.Value);
             }
+
+            modelBuilder.Entity<User>().Ignore(t => t.ErrorLogin);
+            base.OnModelCreating(modelBuilder);
         }
 
         Dictionary<string, int> _numberOfReviews = new Dictionary<string, int>()

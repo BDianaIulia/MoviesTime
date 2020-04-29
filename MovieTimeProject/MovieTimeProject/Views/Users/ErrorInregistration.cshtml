@@ -1,0 +1,18 @@
+﻿@model MovieTimeProject.Models.Users.UserRegisterModel
+@{
+    ViewData["Title"] = "ErrorInregistration";
+}
+
+<head>
+    <link href="~/css/generalLayout.css" type="text/css" rel="stylesheet" />
+    <link href="~/css/registerPage.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+    <p style="color:red">@Model.Error</p>
+    
+    <form asp-action="Register">
+        <partial> @Html.Partial("_registerPartialView") </partial>
+    </form>
+   
+</body>
