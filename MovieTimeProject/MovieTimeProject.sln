@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieTime.DataAccessLibrary
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieTime.ApplicationLogicLibrary", "MovieTime.ApplicationLogicLibrary\MovieTime.ApplicationLogicLibrary.csproj", "{0E014C62-C1F8-4721-B1A8-2C008F168521}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieTime.ApplicationLogic.Tests", "MovieTime.ApplicationLogic.Tests\MovieTime.ApplicationLogic.Tests.csproj", "{45785F34-F483-4057-A19D-2A71C2CC4082}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0E014C62-C1F8-4721-B1A8-2C008F168521}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E014C62-C1F8-4721-B1A8-2C008F168521}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E014C62-C1F8-4721-B1A8-2C008F168521}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45785F34-F483-4057-A19D-2A71C2CC4082}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45785F34-F483-4057-A19D-2A71C2CC4082}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45785F34-F483-4057-A19D-2A71C2CC4082}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45785F34-F483-4057-A19D-2A71C2CC4082}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

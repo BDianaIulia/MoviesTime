@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MovieTimeProject.Models.Movies
+namespace MovieTime.ApplicationLogicLibrary.Helpers
 {
     public class MovieScores
     {

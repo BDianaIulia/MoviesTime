@@ -1,4 +1,5 @@
-﻿using MovieTime.ApplicationLogicLibrary.Interfaces;
+﻿using MovieTime.ApplicationLogicLibrary.Helpers;
+using MovieTime.ApplicationLogicLibrary.Interfaces;
 using MovieTime.ApplicationLogicLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace MovieTime.ApplicationLogicLibrary.Services
             return _movieRepository.getLatestListOfMovies();
         }
 
-        public Movie getElementBy(Guid? id)
+        public Movie GetElementBy(Guid? id)
         {
             return _movieRepository.getElementBy(id);
         }
@@ -31,6 +32,11 @@ namespace MovieTime.ApplicationLogicLibrary.Services
         public IEnumerable<Movie> getMayInterestListOfMovies()
         {
             return _movieRepository.getMayInterestListOfMovies();
+        }
+
+        public MovieScores GetMovieScoresFor(Movie movie)
+        {
+            return new MovieScores(movie);
         }
     }
 }

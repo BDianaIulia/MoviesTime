@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MovieTime.ApplicationLogicLibrary.Helpers;
 using MovieTime.ApplicationLogicLibrary.Models;
 using MovieTime.ApplicationLogicLibrary.Services;
 using MovieTime.DataAccessLibrary;
@@ -31,14 +32,15 @@ namespace MovieTimeProject.Controllers
             Movie movie;
             try
             {
-                movie = _movieService.getElementBy(id);
+                movie = _movieService.GetElementBy(id);
             }
             catch (Exception)
             {
                 return BadRequest("Invalid request received ");
             }
 
-            return View(new DetailsMovieViewModel { Movie = movie, MovieScores = new MovieScores(movie)});
+            MovieScores movieScores = _movieService.GetMovieScoresFor(movie);
+            return View(new DetailsMovieViewModel { Movie = movie, MovieScores = movieScores });
         }
 
     }

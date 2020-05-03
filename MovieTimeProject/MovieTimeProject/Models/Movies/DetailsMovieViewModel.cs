@@ -1,8 +1,5 @@
-﻿using MovieTime.ApplicationLogicLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MovieTime.ApplicationLogicLibrary.Helpers;
+using MovieTime.ApplicationLogicLibrary.Models;
 
 namespace MovieTimeProject.Models.Movies
 {
