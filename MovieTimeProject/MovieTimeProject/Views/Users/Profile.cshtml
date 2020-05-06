@@ -1,0 +1,115 @@
+﻿@model MovieTimeProject.Models.Users.UserProfileModelView
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!DOCTYPE html>
+<head lang="en">
+
+    <link href="~/css/registerPage.css" type="text/css" rel="stylesheet" />
+    <link href="~/css/generalLayout.css" type="text/css" rel="stylesheet" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="content">
+
+        @if (Model.succeedMessage != null)
+        {
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>@Model.succeedMessage!</strong>
+            </div>
+        }
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 style="font-size:50px">Hello @Model.user.UserName!</h1>
+                </div>
+
+                <div class="col-sm-6">
+                    @if (Model.user.PhotoPath == null)
+                    {
+                        <p> <img src="@Url.Content(String.Format("~/profilePhotos/{0}", "add.jpg"))" onClick="changePhoto()" width="300" height="300" /> </p>
+                    }
+                    else
+                    {
+                        <p> <img src="@Url.Content(String.Format("~/profilePhotos/{0}", Model.user.PhotoPath))" onClick="changePhoto()" width="300" height="300"/> </p>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+        <ul>
+            <li>Wish List number: @Model.wishList.Count </li>
+            <li>Seen movies: @Model.seenList.Count</li>
+            <li>Number of reviews: @Model.commentsNumber</li>
+        </ul>
+
+
+        <h1 style="font-size:50px">Wish List</h1>
+
+        <div class="scrollableGallery">
+            @if (Model.wishList.Count != 0)
+                for (var i = 0; i < Model.wishList.Count; i++)
+                {
+                    <div class="gallery">
+                        <a href="@Url.Action("Details", "Movies", Model.wishList[i]) ">
+                            <img src="@Url.Content(String.Format("~/coverPhotos{0}", Model.wishList[i].PosterPath))">
+                        </a>
+                    </div>
+                }
+            else
+            {
+                <p>Empty list</p>
+            }
+
+        </div>
+
+        <h1 style="font-size:50px">Seen movies</h1>
+
+        <div class="scrollableGallery">
+
+            @if (Model.wishList.Count != 0)
+                @for (var i = 0; i < Model.seenList.Count; i++)
+                {
+                    <div class="gallery">
+                        <a href="@Url.Action("Details", "Movies", Model.seenList[i]) ">
+                            <img src="@Url.Content(String.Format("~/coverPhotos{0}", Model.seenList[i].PosterPath))">
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <p>Empty list</p>
+                }
+        </div>
+
+    </div>
+
+    <script>
+        function changePhoto() {
+            if ('@SignInManager.IsSignedIn(User)') {
+                window.open('@Url.Action("ChoosingAPhoto", "Users")',
+                    'newwindow',
+                    'width=600,height=600');
+                return false;
+            }
+        }
+
+        function refresh() {
+           location.reload();
+       }
+    </script>
+
+
+
+</body>

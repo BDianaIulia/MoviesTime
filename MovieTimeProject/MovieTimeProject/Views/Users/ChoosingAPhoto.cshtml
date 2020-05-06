@@ -1,0 +1,56 @@
+﻿@model MovieTimeProject.Models.Users.ChosenPhotosViewModel
+<head>
+    <link href="~/css/listOfFilms.css" type="text/css" rel="stylesheet" />
+</head>
+
+
+<body>
+    <div>
+        <div class="gallery">
+            <a onclick="clicked(simpson)">
+                <img src="@Url.Content(String.Format("~/profilePhotos/{0}", "simpson.jpg"))" onclick="submitFunc('simpson')" width="200" height="200" />
+            </a>
+        </div>
+        <div class="gallery">
+            <a onclick="clicked(green)">
+                <img src="@Url.Content(String.Format("~/profilePhotos/{0}", "green.jpg"))" onclick="submitFunc('green')" width="200" height="200" />
+            </a>
+        </div>
+        <div class="gallery">
+            <a onclick="clicked(brown)">
+                <img src="@Url.Content(String.Format("~/profilePhotos/{0}", "brown.jpg"))" onclick="submitFunc('brown')" width="200" height="200" />
+            </a>
+        </div>
+        <div class="gallery">
+            <a onclick="clicked(orange)">
+                <img src="@Url.Content(String.Format("~/profilePhotos/{0}", "orange.jpg"))" onclick="submitFunc('orange')" width="200" height="200" />
+            </a>
+        </div>
+        <form enctype="multipart/form-data" asp-action="UploadPhoto">
+            <div class="gallery">
+                <input type="file" name="file" asp-for="file" id="upload" onchange="submit()" />
+            </div>
+        </form>
+    </div>
+    <script>
+        function submitFunc(name) {
+            namePath = name + '.jpg';
+            //var myData = { filePath: namePath };
+            alert(namePath);
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("ChoosingAPhoto", "Users")",
+                   // data: myData,
+                    success: function ()
+                    {
+                        window.opener.refresh();
+                        self.close();
+                    },
+                    error: function ()
+                    {
+                        alert("error");
+                    }
+                });
+        }
+    </script>
+</body>

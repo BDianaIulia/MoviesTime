@@ -13,6 +13,7 @@ namespace MovieTime.ApplicationLogicLibrary.Models
         public string Password { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<UserMovieActivity> RelatedListMovies { get; set; }
+        public string PhotoPath { get; set; }
 
         [NotMapped]
         public string ErrorLogin { get; set; }

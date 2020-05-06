@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Web;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using MovieTime.ApplicationLogicLibrary.Models;
 using MovieTime.ApplicationLogicLibrary.Services;
 using MovieTime.DataAccessLibrary;
 using MovieTimeProject.Models.Users;
+using Microsoft.AspNetCore.Http;
 
 namespace MovieTimeProject.Controllers
 {
@@ -42,7 +47,8 @@ namespace MovieTimeProject.Controllers
                            user.Password, true, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");  //Reirect to MyProfile when ready
+                    return RedirectToAction("Profile", new RouteValueDictionary(
+                                            new { controller = "Users", action = "Profile", succeedMessage = "Login suceeded!" }));
                 }
                 else
                 {
@@ -63,7 +69,7 @@ namespace MovieTimeProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_userService.ValidRegister(new User { UserName = userRegistration.UserName, Password = userRegistration.Password} , userRegistration.RePassword))
+                if (_userService.ValidRegister(new User { UserName = userRegistration.UserName, Password = userRegistration.Password }, userRegistration.RePassword))
                 {
                     var user = new IdentityUser { UserName = userRegistration.UserName };
                     var result = await _userManager.CreateAsync(user, userRegistration.Password);
@@ -95,6 +101,87 @@ namespace MovieTimeProject.Controllers
         public bool ValidNameForRegister(string userName)
         {
             return _userService.ValidNameForRegister(userName);
+        }
+
+        public async Task<IActionResult> Profile(string succeedMessage)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            User userData = _userService.GetUserByName(user.UserName);
+            int commentsNumber = _userService.GetNumberOfComments(userData);
+
+            if (succeedMessage != null)
+            {
+                return View(new UserProfileModelView
+                {
+                    user = userData,
+                    seenList = _userService.GetSeenListFor(userData),
+                    wishList = _userService.GetWishListFor(userData),
+                    commentsNumber = commentsNumber,
+                    succeedMessage = succeedMessage
+                });
+            }
+            else
+            {
+                return View(new UserProfileModelView
+                {
+                    user = userData,
+                    seenList = _userService.GetSeenListFor(userData),
+                    wishList = _userService.GetWishListFor(userData),
+                    commentsNumber = commentsNumber
+                });
+            }
+        }
+
+        public IActionResult ChoosingAPhoto()
+        {
+            return PartialView("ChoosingAPhoto");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadPhoto(ChosenPhotosViewModel chosenPhoto)
+        {
+            if (chosenPhoto.file != null)
+            {
+                await _userService.UploadPhotoChosenAsync(chosenPhoto.file);
+                try
+                {
+                    await _userService.SavePhotoUser(chosenPhoto.file.FileName, User);
+                }
+                catch (Exception ex) { }
+            }
+            else
+            {
+                try
+                {
+                    await _userService.SavePhotoUser(chosenPhoto.photoPath, User);
+                }
+                catch (Exception ex) { }
+            }
+
+            return PartialView("ChoosingAPhoto");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadPhotoPredefined(string filePath)
+        {
+            if (filePath != null)
+            {
+                try
+                {
+                    await _userService.SavePhotoUser(filePath, User);
+                }
+                catch (Exception ex) { }
+            }
+            else
+            {
+                try
+                {
+                    await _userService.SavePhotoUser(filePath, User);
+                }
+                catch (Exception ex) { }
+            }
+
+            return PartialView("ChoosingAPhoto");
         }
 
         public async Task<IActionResult> LogoutAsync()
