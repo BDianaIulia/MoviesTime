@@ -11,5 +11,6 @@ namespace MovieTime.ApplicationLogicLibrary.Interfaces
         IEnumerable<Movie> getLatestListOfMovies();
         IEnumerable<Movie> getMayInterestListOfMovies();
         Movie getElementBy(Guid? id);
+        void AddUserMovieActivity(UserMovieActivity userMovieActivity);
     }
 }

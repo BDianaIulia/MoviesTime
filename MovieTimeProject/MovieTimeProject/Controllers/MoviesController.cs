@@ -43,5 +43,20 @@ namespace MovieTimeProject.Controllers
             return View(new DetailsMovieViewModel { Movie = movie, MovieScores = movieScores });
         }
 
+        public async Task CreateCommentAsync(string reviewScore, string comment, Guid idMovie)
+        {
+            await _movieService.AddCommentAsync(new Comment { CommentText = comment, ReviewScore = Int32.Parse(reviewScore) }, idMovie, User);
+        }
+
+        public async Task AddToWishListAsync(Guid idMovie)
+        {
+            await _movieService.AddToWishListAsync(idMovie, "wish", User);
+        }
+
+        public async Task AddToSeenListAsync(Guid idMovie)
+        {
+            await _movieService.AddToWishListAsync(idMovie, "seen", User);
+        }
+
     }
 }

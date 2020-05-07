@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.EntityFrameworkCore;
 using MovieTime.ApplicationLogicLibrary.Interfaces;
 using MovieTime.ApplicationLogicLibrary.Models;
-using MovieTime.ApplicationLogicLibrary.Services;
 using System;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace MovieTime.DataAccessLibrary
 {
@@ -17,8 +14,9 @@ namespace MovieTime.DataAccessLibrary
 
         public User GetUserByName(string userName)
         {
-            return (from user in _db.User
-                   where user.UserName == userName
+            return (from user in _db.User.Include(x => x.Comments)
+                                         .Include(x => x.RelatedListMovies)
+                    where user.UserName == userName
                    select user).FirstOrDefault();
         }
 

@@ -1,0 +1,61 @@
+﻿@model MovieTime.ApplicationLogicLibrary.Models.Comment
+
+@{
+    ViewData["Title"] = "Create";
+}
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Add a review </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+    <link href="~/css/generalLayout.css" type="text/css" rel="stylesheet" />
+    <link href="~/css/commentsAdd.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="stars">
+        <form action="">
+            <input class="star star-5" id="star-5" type="radio" name="star" onclick="getStarValues('5');" />
+            <label class="star star-5" for="star-5"></label>
+            <input class="star star-4" id="star-4" type="radio" name="star" onclick="getStarValues('4');" />
+            <label class="star star-4" for="star-4"></label>
+            <input class="star star-3" id="star-3" type="radio" name="star" onclick="getStarValues('3');" />
+            <label class="star star-3" for="star-3"></label>
+            <input class="star star-2" id="star-2" type="radio" name="star" onclick="getStarValues('2');" />
+            <label class="star star-2" for="star-2"></label>
+            <input class="star star-1" id="star-1" type="radio" name="star" onclick="getStarValues('1');" />
+            <label class="star star-1" for="star-1"></label>
+        </form>
+
+        <script>
+            var reviewScore;
+            function getStarValues(number) {
+                reviewScore = number;
+                document.getElementById("submit").disabled = false;
+            }
+
+            function getCommentValue() {
+                var commentValue = document.getElementById("comment").value;
+                window.opener.setStars(reviewScore);
+                window.opener.setComment(commentValue);
+                self.close();
+            }
+        </script>
+
+        <form>
+            <label for="comment">Add a comment:</label><br>
+            <input type="text" id="comment" name="comment" style="width : 300px ; height:100px"><br><br>
+            <button disabled="disabled" id="submit" onclick="getCommentValue() ">Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>

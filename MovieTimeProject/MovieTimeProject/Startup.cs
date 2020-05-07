@@ -32,6 +32,7 @@ namespace MovieTimeProject
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<MovieService>();
             services.AddScoped<UserService>();
 

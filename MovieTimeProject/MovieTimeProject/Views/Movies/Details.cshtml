@@ -61,8 +61,10 @@
         @if (SignInManager.IsSignedIn(User))
         {
             <!--open like a pop up -->
-            <a href="#"
-               class="btn"><span>+</span></a>
+            <a onclick="window.open('@Url.Action("Create", "Comments")',
+                         'newwindow',
+                         'width=400,height=400');
+              return false;" class="btn"><span>+</span></a>
         }
 
 
@@ -143,10 +145,77 @@
 
         @if (SignInManager.IsSignedIn(User))
         {
-            <a href="#" class="btn"><span>+ Add to Wish List</span></a>
-            <a href="#" class="btn"><span>+ Add to Seen List</span></a>
+            <a onclick="AddToWishList()" class="btn"><span>+ Add to Wish List</span></a>
+            <a onclick="AddToSeenList()" class="btn"><span>+ Add to Seen List</span></a>
         }
         <a href="#" class="btn"><span>Comments</span></a>
 
     </div>
+
+    <script>
+        function AddToWishList() {
+            var myData = {
+                idMovie: '@Model.Movie.Id' };
+
+           $.ajax({
+               type: "POST",
+               datatype: "JSON",
+               url: "@Url.Action("AddToWishList", "Movies")",
+               data: myData,
+               success: function ()
+                    {
+                        alert("success");
+                    },
+               error: function ()
+                    {
+                        alert("error");
+                    }
+                });
+        }
+
+        function AddToSeenList() {
+            var myData = {
+                idMovie: '@Model.Movie.Id' };
+
+           $.ajax({
+               type: "POST",
+               datatype: "JSON",
+               url: "@Url.Action("AddToSeenList", "Movies")",
+               data: myData,
+               success: function ()
+                    {
+                        alert("success");
+                    },
+               error: function ()
+                    {
+                        alert("error");
+                    }
+                });
+        }
+
+            var review;
+            var comment;
+            function setStars(reviewScore) {
+                review = reviewScore;
+            }
+
+            function setComment(commentValue) {
+                comment = commentValue;
+                var myData = { reviewScore: review, comment: comment, idMovie: '@Model.Movie.Id'}
+                $.ajax({
+                    type: "POST",
+                    datatype: "JSON",
+                    url: "@Url.Action("CreateComment", "Movies")",
+                    data: myData,
+                    success: function ()
+                    {
+                        alert("success");
+                    },
+                    error: function ()
+                    {
+                        alert("error");
+                    }
+                });
+            }
+    </script>
 </body>

@@ -18,6 +18,12 @@ namespace MovieTime.DataAccessLibrary
             _configuration = configuration;
         }
 
+        public void AddUserMovieActivity(UserMovieActivity userMovieActivity)
+        {
+            _db.Add(userMovieActivity);
+            _db.SaveChanges();
+        }
+
         public Movie getElementBy(Guid? id)
         {
             if (id == null)
