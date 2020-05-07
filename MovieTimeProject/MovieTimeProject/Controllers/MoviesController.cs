@@ -50,12 +50,12 @@ namespace MovieTimeProject.Controllers
 
         public async Task AddToWishListAsync(Guid idMovie)
         {
-            await _movieService.AddToWishListAsync(idMovie, "wish", User);
+            await _movieService.AddToStatusListAsync(idMovie, "wish", User);
         }
 
         public async Task AddToSeenListAsync(Guid idMovie)
         {
-            await _movieService.AddToWishListAsync(idMovie, "seen", User);
+            await _movieService.AddToStatusListAsync(idMovie, "seen", User);
         }
 
     }
