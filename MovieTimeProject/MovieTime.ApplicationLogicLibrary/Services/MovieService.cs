@@ -43,7 +43,7 @@ namespace MovieTime.ApplicationLogicLibrary.Services
             return _movieRepository.getMayInterestListOfMovies();
         }
 
-        public async System.Threading.Tasks.Task AddToWishListAsync(Guid idMovie, string status, System.Security.Claims.ClaimsPrincipal user)
+        public async System.Threading.Tasks.Task AddToStatusListAsync(Guid idMovie, string status, System.Security.Claims.ClaimsPrincipal user)
         {
             var userObj = await _userManager.GetUserAsync(user);
             var userName = userObj.UserName;
