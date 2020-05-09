@@ -1,0 +1,10 @@
+
+/* for panel hading */		
+		
+		.commentHeading {
+			text-align : left;
+		}
+		
+		.commentHeading .btn{
+			float: right;
+		}

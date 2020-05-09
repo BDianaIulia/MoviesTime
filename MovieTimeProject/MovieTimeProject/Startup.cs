@@ -43,6 +43,7 @@ namespace MovieTimeProject
             services.AddControllersWithViews();
 
             services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MovieContext>();
 
             services.Configure<IdentityOptions>(options =>

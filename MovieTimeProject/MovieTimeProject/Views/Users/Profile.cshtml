@@ -107,7 +107,27 @@
 
         function refresh() {
            location.reload();
-       }
+        }
+
+        function submitPhotoDefault(name) {
+            var namePath = name + '.jpg';
+            var myData = { filePath: namePath };
+            alert(namePath);
+                $.ajax({
+                    type: "POST",
+                    datatype: "JSON",
+                    url: "@Url.Action("ChoosingADefaultPhoto", "Users")",
+                    data: myData,
+                    success: function ()
+                    {
+                        alert("success");
+                    },
+                    error: function ()
+                    {
+                        alert("error");
+                    }
+                });
+        }
     </script>
 
 

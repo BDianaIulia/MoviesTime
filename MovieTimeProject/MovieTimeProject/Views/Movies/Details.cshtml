@@ -148,11 +148,12 @@
             <a onclick="AddToWishList()" class="btn"><span>+ Add to Wish List</span></a>
             <a onclick="AddToSeenList()" class="btn"><span>+ Add to Seen List</span></a>
         }
-        <a href="#" class="btn"><span>Comments</span></a>
+        <a href="@Url.Action("Index", "Comments", new { movieId = Model.Movie.Id }) " class="btn"><span>Comments</span></a>
 
     </div>
 
     <script>
+
         function AddToWishList() {
             var myData = {
                 idMovie: '@Model.Movie.Id' };
@@ -217,5 +218,6 @@
                     }
                 });
             }
+
     </script>
 </body>

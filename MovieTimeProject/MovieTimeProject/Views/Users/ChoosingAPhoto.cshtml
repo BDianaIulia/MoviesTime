@@ -32,25 +32,11 @@
             </div>
         </form>
     </div>
+
     <script>
         function submitFunc(name) {
-            namePath = name + '.jpg';
-            //var myData = { filePath: namePath };
-            alert(namePath);
-                $.ajax({
-                    type: "POST",
-                    url: "@Url.Action("ChoosingAPhoto", "Users")",
-                   // data: myData,
-                    success: function ()
-                    {
-                        window.opener.refresh();
-                        self.close();
-                    },
-                    error: function ()
-                    {
-                        alert("error");
-                    }
-                });
+            window.opener.submitPhotoDefault(name);
+            alert("A ajuns");
         }
     </script>
 </body>

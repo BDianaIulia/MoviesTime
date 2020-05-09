@@ -29,6 +29,7 @@ namespace MovieTimeProject.Controllers
                 return NotFound();
             }
 
+            var x = User.IsInRole("user");
             Movie movie;
             try
             {

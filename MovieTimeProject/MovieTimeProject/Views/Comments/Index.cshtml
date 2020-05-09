@@ -1,0 +1,70 @@
+﻿@model IList<MovieTime.ApplicationLogicLibrary.Models.Comment>
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="~/css/generalLayout.css" type="text/css" rel="stylesheet" />
+    <link href="~/css/commentsPage.css" type="text/css" rel="stylesheet" />
+
+    @*For button style*@
+    <link href="~/css/movieDescription.css" type="text/css" rel="stylesheet" />
+
+
+</head>
+<body>
+
+    <div class="content">
+
+        <div class="container">
+
+            @if (Model == null || Model.Count == 0)
+            {
+                <h2>Empty list</h2>
+            }
+            else
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="commentHeading">
+                                <span> @Model[i].User.UserName </span>
+                                @for (int j = 0; j < Model[i].ReviewScore; j++)
+                                {
+                                    <span class="fa fa-star checked"></span>
+                                }
+
+                                @for (int j = Model[i].ReviewScore; j < 5; j++)
+                                {
+                                    <span class="fa fa-star"></span>
+                                }
+                                @if (User.Identity.Name == Model[i].User.UserName)
+                                {
+                                    <a href="#" class="btn"><span>Edit</span></a>
+                                }
+                                @if (User.Identity.Name == Model[i].User.UserName || User.IsInRole("admin") )
+                                {
+                                    <a href="#" class="btn"><span>Delete</span></a>
+                                }
+                            </div>
+                        </div>
+                        <div class="panel-body">@Model[i].CommentText</div>
+                    </div>
+                }
+            }
+
+
+        </div>
+
+    </div>
+</body>
+</html>

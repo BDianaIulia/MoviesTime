@@ -21,12 +21,14 @@ namespace MovieTimeProject.Controllers
         private UserService _userService;
         private SignInManager<IdentityUser> _signInManager;
         private UserManager<IdentityUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
 
-        public UsersController(UserService userService, SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        public UsersController(UserService userService, SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userService = userService;
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET: Users
@@ -77,6 +79,11 @@ namespace MovieTimeProject.Controllers
                     {
                         await _signInManager.SignInAsync(user, true);
                         _userService.SaveUser(new User { UserName = userRegistration.UserName, Password = userRegistration.Password });
+
+
+                        await _userManager.AddToRoleAsync(user, "user");
+                        
+
                         return RedirectToAction("Index", "Home");
                     }
                     else
@@ -132,8 +139,16 @@ namespace MovieTimeProject.Controllers
             }
         }
 
+        
         public IActionResult ChoosingAPhoto()
         {
+            return PartialView("ChoosingAPhoto");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChoosingADefaultPhotoAsync(string filePath)
+        {
+            await _userService.SavePhotoUser(filePath, User);
             return PartialView("ChoosingAPhoto");
         }
 

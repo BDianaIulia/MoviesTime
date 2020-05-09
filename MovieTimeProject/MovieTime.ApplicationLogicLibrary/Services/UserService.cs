@@ -7,6 +7,7 @@ using MovieTime.ApplicationLogicLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Claims;
 
 namespace MovieTime.ApplicationLogicLibrary.Services
 {
@@ -132,5 +133,7 @@ namespace MovieTime.ApplicationLogicLibrary.Services
                 throw new Exception();
             }
         }
+
+ 
     }
 }

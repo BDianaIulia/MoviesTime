@@ -12,5 +12,10 @@ namespace MovieTime.ApplicationLogicLibrary.Interfaces
         IEnumerable<Movie> getMayInterestListOfMovies();
         Movie getElementBy(Guid? id);
         void AddUserMovieActivity(UserMovieActivity userMovieActivity);
+        void AddMovieReview(Guid idMovie, int reviewScore);
+        void SaveMovieRating(Guid idMovie, MovieRating movieRating);
+        int GetActualScoreForMovie(Guid idMovie);
+        int GetNumberOfReviews(Guid idMovie);
+        MovieRating GetMovieRatingFor(Guid idMovie);
     }
 }

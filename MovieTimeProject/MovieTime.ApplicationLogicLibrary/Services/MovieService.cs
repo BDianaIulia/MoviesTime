@@ -4,6 +4,8 @@ using MovieTime.ApplicationLogicLibrary.Interfaces;
 using MovieTime.ApplicationLogicLibrary.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace MovieTime.ApplicationLogicLibrary.Services
@@ -23,6 +25,20 @@ namespace MovieTime.ApplicationLogicLibrary.Services
             _userRepository = userRepository;
             _commentRepository = commentRepository;
         }
+
+        public IList<Comment> GetCommentsListFor(Guid movieId)
+        {
+            Movie movie;
+            try
+            {
+                movie = _movieRepository.getElementBy(movieId);
+            }
+            catch (Exception ex) { return null; }
+
+            return movie.Comments.ToList();
+
+        }
+
         public IEnumerable<Movie> getTopRatedListOfMovies()
         {
             return _movieRepository.getTopRatedListOfMovies();
@@ -68,6 +84,36 @@ namespace MovieTime.ApplicationLogicLibrary.Services
             comment.IdUser = userModel.Id;
             _commentRepository.Add(comment);
             _commentRepository.SaveChanges();
+
+
+            MovieRating movieRating = _movieRepository.GetMovieRatingFor(idMovie);
+
+            if( movieRating == null )
+                movieRating = new MovieRating { IdMovie = idMovie };
+
+            Type type = movieRating.GetType();
+            PropertyInfo prop = type.GetProperty(rating[comment.ReviewScore]);
+            int lastValue = (int)prop.GetValue(movieRating);
+
+            prop.SetValue(movieRating, lastValue + 1, null);
+
+            int score = _movieRepository.GetActualScoreForMovie(idMovie);
+            int numberOfReviews = _movieRepository.GetNumberOfReviews(idMovie);
+
+            int actualScore = (score * numberOfReviews + comment.ReviewScore) / (numberOfReviews + 1);
+
+            _movieRepository.AddMovieReview(idMovie, actualScore);
+            _movieRepository.SaveMovieRating(idMovie, movieRating);
         }
+
+        private Dictionary<int, string> rating = new Dictionary<int, string>
+        {
+            { 1, "NumberOf1ReviewStars" },
+            { 2, "NumberOf2ReviewStars" },
+            { 3, "NumberOf3ReviewStars" },
+            { 4, "NumberOf4ReviewStars" },
+            { 5, "NumberOf5ReviewStars" }
+        };
+
     }
 }
