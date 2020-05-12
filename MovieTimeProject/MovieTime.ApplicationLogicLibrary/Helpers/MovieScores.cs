@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace MovieTime.ApplicationLogicLibrary.Helpers
@@ -21,6 +22,10 @@ namespace MovieTime.ApplicationLogicLibrary.Helpers
         public int fiveSPercent = 0;
 
         public int NumberOfReviewsForMovie = 0;
+
+        public MovieScores()
+        {
+        }
         public MovieScores(Movie movie)
         {
             if( movie.MovieRating != null )
@@ -41,9 +46,33 @@ namespace MovieTime.ApplicationLogicLibrary.Helpers
             }
         }
 
-        private int percentCalculator(int total, int current)
+        public int percentCalculator(int total, int current)
         {
             return (current * 100) / total;
         }
+
+        public int BuildNewScoreForMovie(MovieRating movieRating, int reviewScore, int OldScore)
+        {
+            int numberOfReviews = movieRating.NumberOf1ReviewStars + movieRating.NumberOf2ReviewStars +
+                                    movieRating.NumberOf3ReviewStars + movieRating.NumberOf4ReviewStars + movieRating.NumberOf5ReviewStars;
+
+            Type type = movieRating.GetType();
+            PropertyInfo prop = type.GetProperty(rating[reviewScore]);
+            int lastValue = (int)prop.GetValue(movieRating);
+
+            prop.SetValue(movieRating, lastValue + 1, null);
+
+            return (OldScore * numberOfReviews + reviewScore) / (numberOfReviews + 1);
+        }
+
+
+        private Dictionary<int, string> rating = new Dictionary<int, string>
+        {
+            { 1, "NumberOf1ReviewStars" },
+            { 2, "NumberOf2ReviewStars" },
+            { 3, "NumberOf3ReviewStars" },
+            { 4, "NumberOf4ReviewStars" },
+            { 5, "NumberOf5ReviewStars" }
+        };
     }
 }

@@ -92,33 +92,14 @@ namespace MovieTime.ApplicationLogicLibrary.Services
                 movieRating = new MovieRating { IdMovie = idMovie };
 
             int score = _movieRepository.GetActualScoreForMovie(idMovie);
-            int numberOfReviews = _movieRepository.GetNumberOfReviews(idMovie);
-            int actualScore = BuildNewScoreForMovie(movieRating, comment.ReviewScore, score, numberOfReviews);
+
+            MovieScores movieScores = new MovieScores();
+            int actualScore = movieScores.BuildNewScoreForMovie(movieRating, comment.ReviewScore, score);
             
             _movieRepository.AddMovieReview(idMovie, actualScore);
             _movieRepository.SaveMovieRating(idMovie, movieRating);
         }
 
-        public int BuildNewScoreForMovie(MovieRating movieRating, int reviewScore, int score, int numberOfReviews)
-        {
-            Type type = movieRating.GetType();
-            PropertyInfo prop = type.GetProperty(rating[reviewScore]);
-            int lastValue = (int)prop.GetValue(movieRating);
-
-            prop.SetValue(movieRating, lastValue + 1, null);
-
-            return (score * numberOfReviews + reviewScore) / (numberOfReviews + 1);
-        }
-
-
-        private Dictionary<int, string> rating = new Dictionary<int, string>
-        {
-            { 1, "NumberOf1ReviewStars" },
-            { 2, "NumberOf2ReviewStars" },
-            { 3, "NumberOf3ReviewStars" },
-            { 4, "NumberOf4ReviewStars" },
-            { 5, "NumberOf5ReviewStars" }
-        };
 
     }
 }
