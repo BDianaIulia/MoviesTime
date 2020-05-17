@@ -16,7 +16,7 @@ namespace MovieTimeProject.Controllers
     public class MoviesController : Controller
     {
         private MovieService _movieService;
-
+        private int _numberOfMoviePerPage = 24;
         public MoviesController(MovieService movieService)
         {
             _movieService = movieService;
@@ -42,6 +42,48 @@ namespace MovieTimeProject.Controllers
 
             MovieScores movieScores = _movieService.GetMovieScoresFor(movie);
             return View(new DetailsMovieViewModel { Movie = movie, MovieScores = movieScores });
+        }
+
+        public IActionResult ListAfterGenre(string genre)
+        {
+            if (genre == null)
+            {
+                return NotFound();
+            }
+
+            var listOfMovies = _movieService.GetMoviesAfter(genre);
+            if (listOfMovies == null)
+            {
+                return NotFound();
+            }
+
+            int noOfPages = Convert.ToInt32(Math.Ceiling((decimal)listOfMovies.Count() / _numberOfMoviePerPage));
+
+            return View(new MovieGalleryViewModel { movies = listOfMovies.Take(_numberOfMoviePerPage).ToList(), numberOfPages = noOfPages, currentPage = "1", genre = genre });
+        }
+
+        public IActionResult ListAfterGenreOnPage(string genre, string currentPage)
+        {
+            if (genre == null)
+            {
+                return NotFound();
+            }
+
+            var listOfMovies = _movieService.GetMoviesAfter(genre);
+            if (listOfMovies == null)
+            {
+                return NotFound();
+            }
+
+            int noOfPages = Convert.ToInt32(Math.Ceiling((decimal)listOfMovies.Count() / _numberOfMoviePerPage));
+            int lowerBound = (Convert.ToInt32(currentPage) - 1) * _numberOfMoviePerPage;
+
+            if (lowerBound + _numberOfMoviePerPage > listOfMovies.Count())
+            {
+                _numberOfMoviePerPage = listOfMovies.Count() - lowerBound;
+            }
+
+            return PartialView("_listAfterGenrePartialView", new MovieGalleryViewModel { movies = listOfMovies.GetRange(lowerBound, _numberOfMoviePerPage), numberOfPages = noOfPages, currentPage = currentPage, genre = genre });
         }
 
         public async Task CreateCommentAsync(string reviewScore, string comment, Guid idMovie)

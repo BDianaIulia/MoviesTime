@@ -17,5 +17,6 @@ namespace MovieTime.ApplicationLogicLibrary.Interfaces
         int GetActualScoreForMovie(Guid idMovie);
         int GetNumberOfReviews(Guid idMovie);
         MovieRating GetMovieRatingFor(Guid idMovie);
+        List<Movie> GetAllWithGenre(string genre);
     }
 }

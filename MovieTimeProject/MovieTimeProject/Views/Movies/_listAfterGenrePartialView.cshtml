@@ -1,0 +1,65 @@
+﻿@model MovieTimeProject.Models.Movies.MovieGalleryViewModel
+
+    <div>
+        @for (int i = 0; i < Model.movies.Count(); i++)
+        {
+            <div class="gallery">
+                <a href="@Url.Action("Details", "Movies", new { id = Model.movies.ElementAt(i).Id }) ">
+                    <img src="@Url.Content(String.Format("~/coverPhotos{0}", Model.movies.ElementAt(i).PosterPath))" width="600" height="400">
+                </a>
+                <div class="desc">@Model.movies.ElementAt(i).Title</div>
+            </div>
+        }
+    </div>
+
+
+<div class="paging">
+    <div class="pagination">
+
+        @if (Model.numberOfPages > 5)
+        {
+            int currentPage = Convert.ToInt32(Model.currentPage);
+            if (currentPage > 3)
+            {
+                <a onclick="getNewPage(1)">&laquo;</a>
+            }
+            int start = (currentPage - 2) > 1 ? (currentPage - 2) : 1;
+            int end = (start + 5) < Model.numberOfPages ? (start + 5) : Model.numberOfPages;
+
+            if (end == Model.numberOfPages)
+                start = Model.numberOfPages - 5;
+
+            for (int j = start; j <= end; j++)
+            {
+                if (j.ToString() == Model.currentPage)
+                {
+                    <a class="active" onclick="getNewPage(@j.ToString())">@j</a>
+                }
+                else
+                {
+                    <a onclick="getNewPage(@j.ToString())">@j</a>
+                }
+            }
+
+            if (Convert.ToInt32(Model.currentPage) < Model.numberOfPages - 3)
+            {
+                <a onclick="getNewPage(@Model.numberOfPages.ToString())">&raquo;</a>
+            }
+
+        }
+        else
+        {
+            for (int j = 1; j < Model.numberOfPages + 1; j++)
+            {
+                if (j.ToString() == Model.currentPage)
+                {
+                    <a class="active" onclick="getNewPage(@j.ToString())">@j</a>
+                }
+                else
+                {
+                    <a onclick="getNewPage(@j.ToString())">@j</a>
+                }
+            }
+        }
+        </div>
+</div>

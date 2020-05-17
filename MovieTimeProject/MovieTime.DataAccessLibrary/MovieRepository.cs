@@ -44,6 +44,13 @@ namespace MovieTime.DataAccessLibrary
                     select movie.ReviewScoreValue).SingleOrDefault();
         }
 
+        public List<Movie> GetAllWithGenre(string genre)
+        {
+            return (from movie in _db.Movie.Include(x => x.Genres).ThenInclude(x => x.Genre)
+                    where movie.Genres.FirstOrDefault(x => x.Genre.GenreName == genre) != null
+                    select movie).ToList();
+        }
+
         public Movie getElementBy(Guid? id)
         {
             if (id == null)

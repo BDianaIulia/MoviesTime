@@ -44,6 +44,11 @@ namespace MovieTime.ApplicationLogicLibrary.Services
             return _movieRepository.getTopRatedListOfMovies();
         }
 
+        public List<Movie> GetMoviesAfter(string genre)
+        {
+            return _movieRepository.GetAllWithGenre(genre);
+        }
+
         public IEnumerable<Movie> getLatestListOfMovies()
         {
             return _movieRepository.getLatestListOfMovies();
