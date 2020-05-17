@@ -1,11 +1,12 @@
 ﻿using MovieTime.ApplicationLogicLibrary.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MovieTime.DataAccessLibrary
 {
-    public class BaseRepository<T> : IRepository<T>
+    public class BaseRepository<T> : IRepository<T> where T : class, new()
     {
         protected MovieContext _db;
         public BaseRepository(MovieContext db)
@@ -19,7 +20,7 @@ namespace MovieTime.DataAccessLibrary
 
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _db.Set<T>().AsEnumerable();
         }
 
         public void SaveChanges()

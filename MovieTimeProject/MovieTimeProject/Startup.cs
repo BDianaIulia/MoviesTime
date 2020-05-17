@@ -34,6 +34,7 @@ namespace MovieTimeProject
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<MovieService>();
+            services.AddScoped<GenreService>();
             services.AddScoped<UserService>();
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=DbMovieTime;Trusted_Connection=True;ConnectRetryCount=0";

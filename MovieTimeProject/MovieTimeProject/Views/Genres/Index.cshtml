@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MovieTime.ApplicationLogicLibrary.Models.Genre>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<head>
+    <link href="~/css/listOfGenres.css" type="text/css" rel="stylesheet" />
+</head>
+
+<div class="content">
+
+    <h1> Choose a genre </h1>
+
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        <div class="container">
+            <a href="@Url.Action("ListAfterGenre", "Movies", new { genre = Model.ElementAt(i).GenreName }) ">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p> <img src=@Url.Content(String.Format("~/genresImages/{0}.jpg", Model.ElementAt(i).GenreName.Replace(" ", "").ToLower())) /> </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p> @(Model.ElementAt(i).GenreName) </p>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+
+</div>
