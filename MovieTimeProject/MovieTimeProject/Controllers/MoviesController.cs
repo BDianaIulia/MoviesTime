@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using MovieTime.ApplicationLogicLibrary.Helpers;
 using MovieTime.ApplicationLogicLibrary.Models;
@@ -44,6 +45,18 @@ namespace MovieTimeProject.Controllers
             return View(new DetailsMovieViewModel { Movie = movie, MovieScores = movieScores });
         }
 
+        public IActionResult ListAfterName(string searchedName)
+        {
+            if (searchedName == null)
+            {
+                return NotFound();
+            }
+
+            var listOfMovies = _movieService.GetPossibleMoviesAfter(searchedName);
+ 
+            return View(new MovieGalleryViewModel { movies = listOfMovies, searched = searchedName });
+        }
+
         public IActionResult ListAfterGenre(string genre)
         {
             if (genre == null)
@@ -59,7 +72,7 @@ namespace MovieTimeProject.Controllers
 
             int noOfPages = Convert.ToInt32(Math.Ceiling((decimal)listOfMovies.Count() / _numberOfMoviePerPage));
 
-            return View(new MovieGalleryViewModel { movies = listOfMovies.Take(_numberOfMoviePerPage).ToList(), numberOfPages = noOfPages, currentPage = "1", genre = genre });
+            return View(new MovieGalleryViewModel { movies = listOfMovies.Take(_numberOfMoviePerPage).ToList(), numberOfPages = noOfPages, currentPage = "1", searched = genre });
         }
 
         public IActionResult ListAfterGenreOnPage(string genre, string currentPage)
@@ -83,7 +96,7 @@ namespace MovieTimeProject.Controllers
                 _numberOfMoviePerPage = listOfMovies.Count() - lowerBound;
             }
 
-            return PartialView("_listAfterGenrePartialView", new MovieGalleryViewModel { movies = listOfMovies.GetRange(lowerBound, _numberOfMoviePerPage), numberOfPages = noOfPages, currentPage = currentPage, genre = genre });
+            return PartialView("_listAfterGenrePartialView", new MovieGalleryViewModel { movies = listOfMovies.GetRange(lowerBound, _numberOfMoviePerPage), numberOfPages = noOfPages, currentPage = currentPage, searched = genre });
         }
 
         public async Task CreateCommentAsync(string reviewScore, string comment, Guid idMovie)

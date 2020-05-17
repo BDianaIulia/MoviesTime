@@ -1,0 +1,33 @@
+﻿@model MovieTimeProject.Models.Movies.MovieGalleryViewModel
+
+@{
+    ViewData["Title"] = "ListOfMovies";
+}
+<head>
+    <link href="~/css/listOfFilms.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="content">
+
+        <h1> You search after @Model.searched</h1>
+        @if (Model.movies.Count() != 0)
+        {
+            @for (int i = 0; i < Model.movies.Count(); i++)
+            {
+                <div class="gallery">
+                    <a href="@Url.Action("Details", "Movies", new { id = Model.movies.ElementAt(i).Id }) ">
+                        <img src="@Url.Content(String.Format("~/coverPhotos{0}", Model.movies.ElementAt(i).PosterPath))" width="600" height="400">
+                    </a>
+                    <div class="desc">@Model.movies.ElementAt(i).Title</div>
+                </div>
+            }
+        }
+        else
+        {
+            <h2>Sorry, nothing matches.</h2>
+        }
+
+
+    </div>
+</body>

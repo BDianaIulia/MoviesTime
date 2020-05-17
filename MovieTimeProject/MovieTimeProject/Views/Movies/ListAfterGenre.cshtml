@@ -11,7 +11,7 @@
 
     <div class="content">
 
-        <h1> You search after  genre @Model.genre</h1>
+        <h1> You search after  genre @Model.searched</h1>
         <div id="contentToBeShowed">
             <partial> @Html.Partial("_listAfterGenrePartialView", Model) </partial>
         </div>
@@ -21,7 +21,7 @@
     <script>
         function getNewPage(page_number) {
             var url = "/Movies/ListAfterGenreOnPage";
-            genre = '@(Model.genre)';
+            genre = '@(Model.searched)';
             var myData = { genre: genre, currentPage: page_number };
             $.ajax({
                 url: url,

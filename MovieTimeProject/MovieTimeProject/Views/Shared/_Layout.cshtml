@@ -29,10 +29,19 @@
                     <a asp-controller="Users" asp-action="Profile">MyProfile</a>
                     <a asp-controller="Users" asp-action="Logout">Log out</a>
                 }
-                    <input type="text" placeholder="Search..">
-                </div>
+                <input type="text" placeholder="Search.." id="searchBox" onchange="Search()">
+            </div>
         </div>
     </header>
+
+    <script>
+        function Search() {
+            var searchedName = document.getElementById("searchBox").value;
+            var url = '@Url.Action("ListAfterName", "Movies", new { searchedName = "__name__" })';
+            window.location.href = url.replace('__name__', searchedName);
+        }
+    </script>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

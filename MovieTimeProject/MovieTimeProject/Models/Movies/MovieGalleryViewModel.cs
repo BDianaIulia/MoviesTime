@@ -11,6 +11,6 @@ namespace MovieTimeProject.Models.Movies
         public List<Movie> movies { get; set; }
         public int numberOfPages { get; set; }
         public string currentPage { get; set; }
-        public string genre { get; set; }
+        public string searched { get; set; }
     }
 }

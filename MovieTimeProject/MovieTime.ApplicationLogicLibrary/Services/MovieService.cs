@@ -49,6 +49,11 @@ namespace MovieTime.ApplicationLogicLibrary.Services
             return _movieRepository.GetAllWithGenre(genre);
         }
 
+        public List<Movie> GetPossibleMoviesAfter(string searchedName)
+        {
+            var allMovies = _movieRepository.GetAll().ToList();
+            return allMovies.FindAll(x => x.Title.CaseInsensitiveContains(searchedName));
+        }
         public IEnumerable<Movie> getLatestListOfMovies()
         {
             return _movieRepository.getLatestListOfMovies();
@@ -106,5 +111,14 @@ namespace MovieTime.ApplicationLogicLibrary.Services
         }
 
 
+    }
+
+    public static class Extensions
+    {
+        public static bool CaseInsensitiveContains(this string text, string value,
+            StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
+        {
+            return text.IndexOf(value, stringComparison) >= 0;
+        }
     }
 }
